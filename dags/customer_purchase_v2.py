@@ -103,13 +103,13 @@ def customer_purchase_demo_v2():
        max_id = max_id_checkpoint_table
     )
 
-    enriched_customer_purchase_table_merge = aql.append(
+    enriched_customer_purchase_table_append = aql.append(
         source_table=enriched_customer_purchase_table,
         target_table=enriched_customer_purchase_table_db
     )
 
     region_purchase_table = region_purchase(
-        enriched_customer_purchase = enriched_customer_purchase_table_merge,
+        enriched_customer_purchase = enriched_customer_purchase_table_append,
          output_table = Table(
              name="region_purchase",
              temp=False
@@ -117,7 +117,7 @@ def customer_purchase_demo_v2():
     )
 
     product_purchase_table = product_purchase(
-        enriched_customer_purchase = enriched_customer_purchase_table_merge,
+        enriched_customer_purchase = enriched_customer_purchase_table_append,
          output_table = Table(
              name="product_purchase",
              temp=False
@@ -125,7 +125,7 @@ def customer_purchase_demo_v2():
     )
 
     max_id_checkpoint_table = max_id_checkpoint(
-        enriched_customer_purchase = enriched_customer_purchase_table_merge,
+        enriched_customer_purchase = enriched_customer_purchase_table_append,
          output_table = Table(
              name="max_id_checkpoint",
              temp=False
