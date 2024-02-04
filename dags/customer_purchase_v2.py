@@ -132,6 +132,7 @@ def customer_purchase_demo_v2():
          ) 
     )
 
+    aql.cleanup()
 
 
 
