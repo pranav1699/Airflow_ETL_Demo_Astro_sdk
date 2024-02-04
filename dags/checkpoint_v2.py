@@ -5,6 +5,12 @@ from astro.table import Table
 from astro.sql import transform
 from astro.sql.operators import append, merge,raw_sql
 
+default_args = {
+    "email": ["demo@gmail.com"],
+    "email_on_failure": True,
+    "email_on_retry": True,
+}
+
 
 sql_get_max_id = """
 select max(id) from customer_purchase ;
@@ -15,14 +21,15 @@ def get_max_id(customer_purchase_maxid):
         return max_id
 
 @dag(
-    dag_id="demo_checkpointing",
+    dag_id="demo_checkpointing_v2",
     schedule="@daily",
     start_date=datetime(2024,1,1),
-    catchup=False
+    catchup=False,
+    default_args=default_args
 )
 
 
-def demo_checkpointing():
+def demo_checkpointing_v2():
 
 
     customer_purchase_maxid = aql.get_value_list(
@@ -34,4 +41,4 @@ def demo_checkpointing():
     
 
 
-demo_checkpointing()
+demo_checkpointing_v2()
